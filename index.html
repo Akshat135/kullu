@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Happy Birthday Kullu 💖</title>
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: #fff0f6;
+    text-align: center;
+    padding: 30px 20px;
+    color: #a82952;
+  }
+  h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+  .signature {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    font-style: italic;
+  }
+  .gallery img {
+    width: 45vw;
+    max-width: 200px;
+    border-radius: 15px;
+    margin: 0 10px;
+    box-shadow: 0 0 15px #d6336c;
+  }
+  .menu {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  .menu a {
+    text-decoration: none;
+    background: #d6336c;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    box-shadow: 0 5px 15px rgba(214,51,108,0.6);
+    transition: background 0.3s ease;
+  }
+  .menu a:hover {
+    background: #a82952;
+  }
+  audio {
+    margin-top: 25px;
+    width: 90%;
+    max-width: 400px;
+  }
+  @media (max-width: 600px) {
+    .gallery img {
+      width: 90vw;
+      max-width: none;
+      margin: 10px 0;
+    }
+    .menu a {
+      flex: 1 1 100%;
+      padding: 15px 0;
+      font-size: 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>Happy Birthday Kullu 💖</h1>
+<p class="signature">From Akshat — Sending you all my love across the miles!</p>
+
+<div class="gallery">
+  <img src="https://i.postimg.cc/x1t2DXpx/kullu.jpg" alt="Kullu" />
+  <img src="https://i.postimg.cc/FRS8RzGQ/me2.jpg" alt="Akshat" />
+</div>
+
+<!-- 
+ -->
+
+ 
+<!-- Background music -->
+
+<!-- Background music -->
+<audio id="bg-music" src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" loop></audio>
+
+<button id="music-control">▶️ Play Birthday Music</button>
+
+<script>
+  const music = document.getElementById('bg-music');
+  const btn = document.getElementById('music-control');
+
+  btn.addEventListener('click', () => {
+    if (music.paused) {
+      music.play();
+      btn.textContent = '⏸️ Stop Music';
+    } else {
+      music.pause();
+      btn.textContent = '▶️ Play Birthday Music';
+    }
+  });
+</script>
+
+<div class="menu">
+  <a href="love-meter.html">Calculate Love Meter 💖</a>
+  <a href="quiz.html">Answer Some Questions 💌</a>
+  <a href="love-letter.html">Love Letter 💕</a>
+  <a href="cake-cutting.html">Cake Cutting 🎂</a>
+</div>
+
+</body>
+</html>

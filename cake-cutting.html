@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cake Cutting 🎂</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background: #fff0f6;
+    color: #a82952;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    margin-bottom: 60px; /* More space below the heading */
+  }
+
+  /* Cake emoji with floating animation */
+  .cake-emoji {
+    font-size: 6rem;
+    animation: float 3s ease-in-out infinite;
+    display: inline-block;
+    margin-bottom: 40px;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  .cake-container {
+    position: relative;
+    width: 300px;
+    height: 180px;
+    margin: 0 auto 30px auto;
+  }
+
+  /* Cake base */
+  .cake {
+    width: 280px;
+    height: 180px;
+    background: #f39c9c;
+    border-radius: 30px 30px 15px 15px;
+    position: relative;
+    margin: 0 auto;
+    box-shadow: inset 0 -10px 20px rgba(255, 255, 255, 0.6);
+    overflow: visible;
+  }
+
+  /* Cake slice */
+  .slice {
+    position: absolute;
+    top: 40px;
+    left: 140px;
+    width: 120px;
+    height: 140px;
+    background: #ffd2d2;
+    border-radius: 0 30px 30px 0;
+    box-shadow: inset 0 5px 10px rgba(255, 255, 255, 0.7);
+    transform-origin: left center;
+    transition: transform 1s ease;
+    z-index: 2;
+  }
+
+  /* Slice cut animation */
+  .slice.cut {
+    transform: rotate(-90deg) translateX(-120px);
+    opacity: 0.8;
+  }
+
+  /* Candles container */
+  .candles {
+    position: absolute;
+    top: -30px;
+    left: 40px;
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 3;
+  }
+
+  /* Single candle */
+  .candle {
+    width: 10px;
+    height: 40px;
+    background: #fff3f3;
+    border-radius: 2px;
+    position: relative;
+  }
+
+  /* Candle flame */
+  .flame {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 20px;
+    background: radial-gradient(circle at center, #ffb74d 40%, transparent 70%);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: flicker 1.2s infinite alternate, glow 2.5s infinite ease-in-out;
+    box-shadow: 0 0 10px 3px #ffb74d;
+  }
+
+  /* Flicker effect */
+  @keyframes flicker {
+    0% { transform: translateX(-50%) scale(1); opacity: 1; }
+    100% { transform: translateX(-50%) scale(1.1) translateY(-2px); opacity: 0.85; }
+  }
+
+  /* Glow effect for flame */
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 10px 3px #ffb74d; }
+    50% { box-shadow: 0 0 15px 6px #ffdb70; }
+  }
+
+  /* Flame off state */
+  .flame.off {
+    animation: none;
+    opacity: 0;
+    box-shadow: none;
+  }
+
+  /* Cut cake button */
+  #cut-cake-btn {
+    background-color: #d6336c;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    padding: 15px 40px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #cut-cake-btn:hover:not(:disabled) {
+    background-color: #a82952;
+  }
+
+  #cut-cake-btn:disabled {
+    background-color: #999;
+    cursor: default;
+  }
+
+  /* Message popup */
+  #message-popup {
+    margin-top: 30px;
+    font-size: 1.6rem;
+    color: #d6336c;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  #message-popup.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<h1>Cake Cutting Ceremony 🎂💖</h1>
+
+<div class="cake-emoji">🎂</div>
+
+<div class="cake-container">
+  <div class="cake">
+    <div class="slice"></div>
+    <div class="candles">
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+    </div>
+  </div>
+</div>
+
+<button id="cut-cake-btn">🎉 Blow Candles & Cut Cake</button>
+
+<div id="message-popup">
+  I love you my love! Happy Birthday, sweet heart! 🎂💖😘
+</div>
+
+<script>
+  const cutBtn = document.getElementById('cut-cake-btn');
+  const flames = document.querySelectorAll('.flame');
+  const slice = document.querySelector('.slice');
+  const messagePopup = document.getElementById('message-popup');
+
+  cutBtn.addEventListener('click', () => {
+    // Turn off flames
+    flames.forEach(f => f.classList.add('off'));
+    // Animate cake slice cut
+    slice.classList.add('cut');
+    // Show message after 1.5s
+    setTimeout(() => {
+      messagePopup.classList.add('show');
+      cutBtn.disabled = true;
+      cutBtn.textContent = "Cake Cut! 🎂";
+    }, 1500);
+  });
+</script>
+
+</body>
+</html>

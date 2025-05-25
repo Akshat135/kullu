@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Love Meter</title>
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: #fff0f6;
+    color: #a82952;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    margin-bottom: 30px;
+  }
+  .love-meter {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  .loading-dots span {
+    animation-name: blink;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+  }
+  .loading-dots span:nth-child(2) { animation-delay: 0.3s; }
+  .loading-dots span:nth-child(3) { animation-delay: 0.6s; }
+  @keyframes blink {
+    0%, 100% {opacity: 0;}
+    50% {opacity: 1;}
+  }
+  #love-meter-result {
+    font-size: 3rem;
+    margin-top: 20px;
+    color: #d6336c;
+  }
+  button {
+    margin-top: 30px;
+    background-color: #d6336c;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.3rem;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(214,51,108,0.5);
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background-color: #a82952;
+  }
+  a.back-link {
+    margin-top: 30px;
+    display: inline-block;
+    color: #a82952;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  a.back-link:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<h1>Akshat's Love Meter 💖</h1>
+
+<div class="love-meter" id="love-meter-text">
+  Click below love<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
+</div>
+
+<div id="love-meter-result" style="display:none;">
+  💖 Akshat's love for Kullu is <span>100% ❤️</span>
+</div>
+
+<button id="calculate-btn">Calculate Love</button>
+
+<a href="index.html" class="back-link">← Back to Home</a>
+
+<script>
+  const calculateBtn = document.getElementById('calculate-btn');
+  const loveMeterText = document.getElementById('love-meter-text');
+  const loveMeterResult = document.getElementById('love-meter-result');
+
+  calculateBtn.addEventListener('click', () => {
+    loveMeterText.style.display = 'block';
+    loveMeterResult.style.display = 'none';
+    calculateBtn.disabled = true;
+    calculateBtn.textContent = 'Calculating...';
+
+    setTimeout(() => {
+      loveMeterText.style.display = 'none';
+      loveMeterResult.style.display = 'block';
+      calculateBtn.disabled = false;
+      calculateBtn.textContent = 'Calculate Love';
+    }, 3500);
+  });
+</script>
+
+</body>
+</html>

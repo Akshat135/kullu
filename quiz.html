@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Love Quiz 💕</title>
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: #fff0f6;
+    color: #a82952;
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+  }
+  h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .quiz-question {
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  label {
+    display: block;
+    margin-top: 8px;
+    font-size: 1.1rem;
+  }
+  button {
+    margin-top: 25px;
+    background-color: #d6336c;
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    width: 100%;
+  }
+  button:hover {
+    background-color: #a82952;
+  }
+  #result {
+    margin-top: 25px;
+    font-size: 1.8rem;
+    text-align: center;
+    color: #d6336c;
+  }
+  .heart {
+    color: red;
+    font-size: 1.8rem;
+    margin-left: 5px;
+  }
+  a.back-link {
+    display: block;
+    margin-top: 30px;
+    text-align: center;
+    color: #a82952;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  a.back-link:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<h1>Love Quiz 💕</h1>
+
+<form id="quiz-form">
+  <div class="quiz-question">1. When did we first talk?</div>
+  <label><input type="radio" name="q1" value="wrong" required> Last year in April</label>
+  <label><input type="radio" name="q1" value="correct"> On the 1st of Jan 2025</label>
+  <label><input type="radio" name="q1" value="wrong"> Two years ago in June</label>
+
+  <div class="quiz-question">2. Who is Tom the cat?</div>
+  <label><input type="radio" name="q2" value="correct" required> Muhehehe 🐱</label>
+  <label><input type="radio" name="q2" value="wrong"> A real cat</label>
+  <label><input type="radio" name="q2" value="wrong"> A neighbor</label>
+
+  <div class="quiz-question">3. What's my nickname?</div>
+  <label><input type="radio" name="q3" value="wrong" required> Akshu</label>
+  <label><input type="radio" name="q3" value="correct"> Chichi</label>
+  <label><input type="radio" name="q3" value="wrong"> Akshat</label>
+
+  <div class="quiz-question">4. In which I am yelling at you?</div>
+  <label><input type="radio" name="q4" value="wrong" required> i love you</label>
+  <label><input type="radio" name="q4" value="correct"> I LOVE YOU</label>
+  <label><input type="radio" name="q4" value="wrong"> i love you</label>
+
+  <div class="quiz-question">5. Do you love my thing?</div>
+  <label><input type="radio" name="q5" value="correct" required> Yes</label>
+  <label><input type="radio" name="q5" value="correct"> Yes, of course</label>
+  <label><input type="radio" name="q5" value="correct"> Yes, I love him</label>
+
+  <button type="submit">Submit Answers</button>
+</form>
+
+<div id="result"></div>
+
+<a href="index.html" class="back-link">← Back to Home</a>
+
+<script>
+  const form = document.getElementById('quiz-form');
+  const resultDiv = document.getElementById('result');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    let score = 0;
+    const answers = new FormData(form);
+
+    for (const [key, value] of answers.entries()) {
+      if (value === 'correct') score++;
+    }
+
+    const totalQuestions = 5;
+    const percent = (score / totalQuestions) * 100;
+    let message = `Your Love Score: ${percent}%`;
+
+    if (percent >= 75) {
+      message += ' ❤️😘 You really know me well! I love you, happy birthday my love!';
+    } else if (percent >= 50) {
+      message += ' 💕 Not bad, but you can learn more about me! ❤️';
+    } else {
+      message += ' 💔 Hmm... try to remember better! 😢';
+    }
+
+    resultDiv.textContent = message;
+  });
+</script>
+
+</body>
+</html>
