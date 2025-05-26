@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Puzzle Game 🧩</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #ffe0f0;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #d6336c;
+    }
+    #puzzle {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      margin: 20px auto;
+      gap: 2px;
+      width: 304px;
+    }
+    .tile {
+      width: 100px;
+      height: 100px;
+      background-image: url('https://i.postimg.cc/x1t2DXpx/kullu.jpg');
+      background-size: 300px 300px;
+      cursor: grab;
+      border: 1px solid #ccc;
+    }
+    .tile.dragging {
+      opacity: 0.5;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      color: #a80038;
+    }
+    #back {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      background: #fff;
+      color: #a80038;
+      font-weight: bold;
+      border: 2px solid #a80038;
+      border-radius: 20px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Recreate Kullu's Picture 💞</h1>
+
+<div id="puzzle"></div>
+<div id="message"></div>
+<a id="back" href="game.html">← Back to Game Menu</a>
+
+<script>
+  const puzzle = document.getElementById('puzzle');
+  const message = document.getElementById('message');
+
+  const positions = [];
+  for (let y = 0; y < 3; y++) {
+    for (let x = 0; x < 3; x++) {
+      positions.push(`${-x * 100}px ${-y * 100}px`);
+    }
+  }
+
+  const correctOrder = [...positions];
+  const shuffledOrder = [...positions].sort(() => Math.random() - 0.5);
+
+  shuffledOrder.forEach((pos, idx) => {
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    tile.style.backgroundPosition = pos;
+    tile.setAttribute('data-correct', correctOrder[idx]);
+    tile.setAttribute('draggable', true);
+    puzzle.appendChild(tile);
+  });
+
+  let dragged;
+
+  puzzle.addEventListener('dragstart', e => {
+    dragged = e.target;
+    e.target.classList.add('dragging');
+  });
+
+  puzzle.addEventListener('dragend', e => {
+    e.target.classList.remove('dragging');
+  });
+
+  puzzle.addEventListener('dragover', e => e.preventDefault());
+
+  puzzle.addEventListener('drop', e => {
+    e.preventDefault();
+    if (e.target.classList.contains('tile') && e.target !== dragged) {
+      const draggedPos = dragged.style.backgroundPosition;
+      const droppedPos = e.target.style.backgroundPosition;
+
+      dragged.style.backgroundPosition = droppedPos;
+      e.target.style.backgroundPosition = draggedPos;
+
+      checkWin();
+    }
+  });
+
+  function checkWin() {
+    const tiles = document.querySelectorAll('.tile');
+    let solved = true;
+    tiles.forEach((tile, idx) => {
+      if (tile.style.backgroundPosition !== tile.getAttribute('data-correct')) {
+        solved = false;
+      }
+    });
+    if (solved) {
+      message.innerHTML = "Yay! 🎉 You solved it! Love you Kullu! 💖";
+    }
+  }
+</script>
+
+</body>
+</html>

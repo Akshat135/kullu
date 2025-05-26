@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Level 1 - Catch the Hearts 💘</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #ffe6f0, #ffccdd);
+      font-family: 'Comic Sans MS', cursive;
+    }
+
+    #scoreBoard {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5rem;
+      color: #d6336c;
+      background: #fff0f6;
+      padding: 10px 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px #f9b6c5;
+    }
+
+    .heart {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      font-size: 2rem;
+      cursor: pointer;
+      animation: fall 4s linear forwards;
+    }
+
+    @keyframes fall {
+      0% {
+        top: -50px;
+        opacity: 1;
+      }
+      100% {
+        top: 100vh;
+        opacity: 0.6;
+      }
+    }
+
+    .game-over {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 2rem;
+      color: #d6336c;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px pink;
+      display: none;
+    }
+
+    a.back {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #a82952;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="scoreBoard">Score: <span id="score">0</span> 💖</div>
+<div class="game-over" id="gameOver">
+  🎉 Game Over! <br />Miss kullu You caught <span id="finalScore">0</span> hearts 💘<br />
+  <a href="level1.html">Play Again</a><br />
+  <a href="index.html">← Back to Games</a>
+</div>
+
+<script>
+  let score = 0;
+  const maxHearts = 20;
+  const scoreSpan = document.getElementById('score');
+  const finalScore = document.getElementById('finalScore');
+  const gameOver = document.getElementById('gameOver');
+
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.innerHTML = '❤️';
+
+    heart.addEventListener('click', () => {
+      score++;
+      scoreSpan.textContent = score;
+      heart.remove();
+    });
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 4000);
+  }
+
+  let heartCount = 0;
+  const interval = setInterval(() => {
+    createHeart();
+    heartCount++;
+    if (heartCount >= maxHearts) {
+      clearInterval(interval);
+      setTimeout(() => {
+        finalScore.textContent = score;
+        gameOver.style.display = 'block';
+      }, 4000);
+    }
+  }, 600);
+</script>
+
+</body>
+</html>
